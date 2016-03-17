@@ -1,0 +1,20 @@
+{
+  "name": "gulp-update-build-info",
+  "version": "1.0.0",
+  "description": "update build.json and builds.json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/franksongca/gulp-update-build-info.git"
+  },
+  "author": "Frank Song",
+  "email": "songfrank@hotmail.com",    
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/franksongca/gulp-update-build-info/issues"
+  },
+  "homepage": "https://github.com/franksongca/gulp-update-build-info#readme"
+}
