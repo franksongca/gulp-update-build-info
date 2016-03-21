@@ -1,6 +1,6 @@
 {
   "name": "gulp-update-build-info",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "update build.json and builds.json",
   "main": "index.js",
   "scripts": {
