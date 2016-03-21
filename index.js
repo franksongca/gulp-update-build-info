@@ -99,7 +99,11 @@ module.exports = function (options) {
             dateFileObj.branch = branch;
             bowerJson.push(dateFileObj);
             jsonfile.writeFile('builds.json', bowerJson, {spaces: 2}, function (err) {
-              console.error(err)
+              if (!err) {
+                gutil.log(gutil.colors.magenta('------------------------------------'));
+                gutil.log(gutil.colors.magenta('error occurs when write build.json:'), gutil.colors.red(err));
+                gutil.log(gutil.colors.magenta('------------------------------------'));
+              }
             });
           });
         });
