@@ -12,6 +12,8 @@ var jsonfile = require('jsonfile'),
   gutil = require('gulp-util'),
   git = require('git-rev');
 
+gutil.log(gutil.colors.magenta('gulp-update-build-info: v1.0.2'));
+
 module.exports = function (options) {
 
   var bowerJson,
@@ -33,7 +35,7 @@ module.exports = function (options) {
     return _.find(brands, function (brand) {
       return brand === options.brand;
     });
-  }
+  };
 
   /**
    * populates with build information
