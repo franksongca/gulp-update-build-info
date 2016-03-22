@@ -73,7 +73,7 @@ module.exports = function (options) {
   buildDateFile = function (object) {
 
     var parsedObject = {};
-    //parsedObject.date = moment().format('MM/DD/YYYY hh:mm:ss');
+    parsedObject.date = moment().format('MM/DD/YYYY HH:mm:ss');
     parsedObject.version = bowerJson.version;
     gutil.log(gutil.colors.magenta('------------------------------------'));
     _.isUndefined(object) ? gutil.log(gutil.colors.magenta('build.json not found but it\'s okay, we\'ll go ahead anyways')) : gutil.log(gutil.colors.magenta('build.json found, pretty cool'));
@@ -154,7 +154,7 @@ module.exports = function (options) {
           jsonfile.writeFile('builds.json', bowerJson, {spaces: 2}, function (err) {
             if (err !== null) {
               gutil.log(gutil.colors.magenta('------------------------------------'));
-              gutil.log(gutil.colors.magenta('error occurs when write build.json:'), gutil.colors.red(err));
+              gutil.log(gutil.colors.magenta('error occurs when write builds.json:'), gutil.colors.red(err));
               gutil.log(gutil.colors.magenta('------------------------------------'));
             }
           });
