@@ -13,7 +13,7 @@ var jsonfile = require('jsonfile'),
   gutil = require('gulp-util'),
   git = require('git-rev');
 
-gutil.log(gutil.colors.magenta('gulp-update-build-info: v1.0.4'));
+gutil.log(gutil.colors.magenta('gulp-update-build-info: v1.0.5'));
 
 module.exports = function (options) {
 
