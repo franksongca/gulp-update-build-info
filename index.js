@@ -45,23 +45,16 @@ module.exports = function (options) {
   };
 
   /**
-   * remove the build from the collection that is with the same
+   * remove the build from the collection that is with the same version
    * @param object
    * @returns {object}
    */
   reduceByVersion = function (builds, version) {
-    var brands = [],
-      rest = _.reject(builds, function (build) {
-        if (build.version === version) {
-          brands = build.brands;
-          return true;
-        }
-      });
-
-    return {
-      builds: rest,
-      brands: brands
-    };
+    return _.reject(builds, function (build) {
+      if (build.version === version) {
+        return true;
+      }
+    });
   };
 
 
@@ -117,40 +110,19 @@ module.exports = function (options) {
 
       if (bowerJson.length) {
 
-        reducedBuilds = reduceByVersion(bowerJson, dateFileObj.version)
-
-        if (reducedBuilds.brands) {
-          dateFileObj.brands = reducedBuilds.brands;
-          bowerJson = reducedBuilds.builds;
-        }
+        bowerJson = reduceByVersion(bowerJson, dateFileObj.version);
 
       }
 
       git.branch(function (branch) {
-        git.long(function (commit) {
-          if (options.brand) {
-            if (!brandExists(dateFileObj.brands)) {
-              dateFileObj.brands = dateFileObj.brands || [];
-              dateFileObj.brands.push({
-                name: options.brand,
-                commit: commit,
-                repo: 'git@totes-gitlab01.rogers.com:ute/ute-ui.git#v' + dateFileObj.version + '.' + options.brand,
-                date: moment().format('MM/DD/YYYY HH:mm:ss')
-              });
-            } else {
-              for (brandIndex = 0; brandIndex < dateFileObj.brands.length; brandIndex++) {
-                if (dateFileObj.brands[brandIndex].name === options.brand) {
-                  dateFileObj.brands[brandIndex].commit = commit;
-                  dateFileObj.brands[brandIndex].date = moment().format('MM/DD/YYYY HH:mm:ss');
-                  dateFileObj.brands[brandIndex].repo = 'git@totes-gitlab01.rogers.com:ute/ute-ui.git#v' + dateFileObj.version + '.' + options.brand;
-                }
-              }
-            }
-          }
 
-          //dateFileObj.commit = str;
+        git.long(function (commit) {
+
           dateFileObj.branch = branch;
+          dateFileObj.commit = commit;
+          dateFileObj.repo = 'git@totes-gitlab01.rogers.com:ute/ute-ui.git#v' + dateFileObj.version;
           bowerJson.push(dateFileObj);
+
           jsonfile.writeFile('builds.json', bowerJson, {spaces: 2}, function (err) {
             if (err !== null) {
               gutil.log(gutil.colors.magenta('------------------------------------'));
@@ -158,7 +130,9 @@ module.exports = function (options) {
               gutil.log(gutil.colors.magenta('------------------------------------'));
             }
           });
+
         });
+
       });
 
       file.contents = new Buffer(dateFile);
